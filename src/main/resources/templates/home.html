@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home - Minimarket</title>
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: url('https://t4.ftcdn.net/jpg/06/63/16/45/360_F_663164516_iROkqpM1RCrA765j6hLMp1v6Lf2xPnU1.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: white; /* Color del texto */
+            text-align: center; /* Centrar el texto */
+        }
+
+        .header {
+            font-size: 50px;
+            font-weight: bold;
+            color: white;
+            background-color: rgba(46, 125, 50, 0.7);
+            padding: 20px 0; /* Espaciado superior e inferior aumentado */
+            width: 100%;
+            text-align: center;
+            position: relative; /* Cambiado a relativo para no usar posición absoluta */
+            font-family: 'Patrick Hand', cursive;
+            z-index: 1; /* Asegurarse de que esté frente a otras capas */
+        }
+
+        .logout-button {
+            position: absolute; /* Posición absoluta para colocar el botón en la esquina superior derecha */
+            top: 20px; /* Ajustar el espacio desde la parte superior */
+            right: 30px; /* Ajustar el espacio desde la derecha */
+            background-color: rgba(255, 0, 0, 0.8); /* Fondo rojo con opacidad */
+            color: white; /* Color del texto */
+            padding: 10px 20px; /* Espaciado interno ajustado */
+            border-radius: 5px; /* Bordes redondeados */
+            text-decoration: none; /* Quitar subrayado */
+            font-size: 16px; /* Tamaño de la fuente */
+            transition: background-color 0.3s; /* Transición suave para el color de fondo */
+            z-index: 2; /* Asegurarse de que el botón esté frente a otros elementos */
+        }
+
+        .logout-button:hover {
+            background-color: #c62828; /* Color más oscuro al pasar el mouse */
+        }
+
+        .welcome-container {
+			background-color: rgba(0, 0, 0, 0.5); /* Color negro con opacidad del 70% */
+            position: relative; /* Posición relativa para el contenedor */
+			padding: 60px 20px; /* Incrementa el padding para dar más altura */
+			    z-index: 1;
+			    min-height: 400px; /* Establece una altura mínima para el contenedor */
+				margin-top: 60px;
+
+        }
+
+        .welcome-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://example.com/path-to-your-background-image.jpg') no-repeat center center; /* Ruta a la imagen de fondo */
+            background-size: cover;
+            opacity: 0.5; /* Opacidad para oscurecer la imagen */
+            z-index: 0; /* Poner la imagen detrás del contenido */
+        }
+
+        h1 {
+            font-size: 48px; /* Tamaño del título */
+            color: white; /* Color verde */
+            font-family: 'Patrick Hand', cursive; /* Fuente que simula escritura a mano */
+            position: relative; /* Posición relativa para el texto */
+            z-index: 1; /* Asegurarse de que el texto esté frente a la imagen */
+			font-size: 100px;
+
+        }
+
+        .button-container {
+            display: flex; /* Usar flexbox para alinear botones */
+            justify-content: center; /* Centrar horizontalmente */
+            margin-top: 40px; /* Espaciado superior para los botones */
+            position: relative; /* Posición relativa para los botones */
+            z-index: 1; /* Asegurarse de que los botones estén frente a la imagen */
+        }
+
+        .button {
+            background-color: rgba(46, 125, 50, 0.8); /* Fondo verde oscuro con opacidad */
+            color: white; /* Color del texto */
+            padding: 15px 30px; /* Espaciado interno */
+            border-radius: 5px; /* Bordes redondeados */
+            text-decoration: none; /* Quitar subrayado */
+            margin: 0 15px; /* Margen horizontal entre botones */
+            font-size: 18px; /* Tamaño de la fuente */
+            transition: background-color 0.3s; /* Transición suave para el color de fondo */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Sombra para efecto de profundidad */
+        }
+
+        .button:hover {
+            background-color: #1B5E20; /* Color más oscuro al pasar el mouse */
+        }
+
+        footer {
+            position: fixed;
+            bottom: 10px;
+            width: 100%;
+            text-align: center;
+            font-size: 14px;
+            color: #ffffff; /* Color blanco para el pie de página */
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                font-size: 30px; /* Tamaño del texto en pantallas pequeñas */
+            }
+
+            h1 {
+                font-size: 30px; /* Tamaño del título en pantallas pequeñas */
+            }
+
+            .button {
+                padding: 10px 20px; /* Espaciado interno ajustado para botones en pantallas pequeñas */
+                font-size: 16px; /* Tamaño de la fuente ajustado para botones en pantallas pequeñas */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">Economarket</div> <!-- Nombre del minimarket -->
+    <a href="/login" class="logout-button">Salir</a> <!-- Botón de salir -->
+    <div class="welcome-container">
+        <h1>Bienvenido a Economarket</h1>
+        <div class="button-container">
+            <a href="/agregar-producto" class="button">Agregar Producto</a>
+            <a href="/ver-lista-productos" class="button">Ver Lista de Productos</a>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 Minimarket. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>

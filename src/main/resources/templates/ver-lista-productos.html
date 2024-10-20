@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Productos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: url('https://t4.ftcdn.net/jpg/06/63/16/45/360_F_663164516_iROkqpM1RCrA765j6hLMp1v6Lf2xPnU1.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+        }
+
+        .header {
+			font-family: 'Patrick Hand', cursive;
+            font-size: 50px; 
+            font-weight: bold; 
+            color: white; 
+            background-color: rgba(46, 125, 50, 0.7); 
+            padding: 10px 0; 
+            margin-bottom: 40px; 
+            text-align: center;
+        }
+		.logout-button {
+				            position: absolute; /* Posición absoluta para colocar el botón en la esquina superior derecha */
+				            top: 20px; /* Ajustar el espacio desde la parte superior */
+				            right: 30px; /* Ajustar el espacio desde la derecha */
+				            background-color: rgba(255, 0, 0, 0.8); /* Fondo rojo con opacidad */
+				            color: white; /* Color del texto */
+				            padding: 10px 20px; /* Espaciado interno ajustado */
+				            border-radius: 5px; /* Bordes redondeados */
+				            text-decoration: none; /* Quitar subrayado */
+				            font-size: 16px; /* Tamaño de la fuente */
+				            transition: background-color 0.3s; /* Transición suave para el color de fondo */
+				            z-index: 2; /* Asegurarse de que el botón esté frente a otros elementos */
+				        }
+
+				        .logout-button:hover {
+				            background-color: #c62828; /* Color más oscuro al pasar el mouse */
+				        }
+
+        .container {
+            width: 80%;
+            margin: 50px auto;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            font-size: 32px;
+            color: #2E7D32;
+            text-align: center;
+            margin-bottom: 30px;
+			font-family: 'Patrick Hand', cursive;
+
+        }
+
+        .filter-container {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .filter-container label {
+            margin-right: 10px;
+        }
+
+        .filter-container select {
+            padding: 8px;
+            margin-right: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        thead th {
+            background-color: #2E7D32;
+            color: white;
+            font-weight: bold;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tbody td {
+            border-bottom: 1px solid #ddd;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5px; /* Reduce el espacio entre los botones */
+        }
+        .action-button {
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 14px;
+            padding: 0; /* Elimina el padding interno */
+        }
+
+        .btn-eliminar {
+            background-color: #d32f2f;
+            color: white;
+        }
+
+        .btn-modificar {
+            background-color: #1976d2;
+            color: white;
+        }
+
+        .btn-ver-detalles {
+            background-color: #ffc107;
+            color: black;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        button {
+            background-color: #2E7D32;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #1B5E20;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .delete-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .delete-form label {
+            font-weight: bold;
+        }
+
+        .delete-form input[readonly] {
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            padding: 5px;
+            border-radius: 4px;
+        }
+
+        .delete-form-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .delete-form-buttons button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .delete-form-buttons .confirm-delete {
+            background-color: #d32f2f;
+            color: white;
+        }
+
+        .delete-form-buttons .cancel-delete {
+            background-color: #757575;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+            }
+
+            th, td {
+                padding: 8px 10px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            .button-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">Economarket</div>
+	<a href="/login" class="logout-button">Salir</a> <!-- Botón de salir -->
+
+    <div class="container">
+        <h1>Lista de Productos</h1>
+        <div class="filter-container">
+            <form method="get" action="/ver-lista-productos">
+                <label for="categoria">Filtrar por categoría:</label>
+                <select id="categoria" name="categoriaId">
+                    <option value="">Todas</option>
+                    <th:block th:each="categoria : ${categorias}">
+                        <option th:value="${categoria.id}" 
+                                th:text="${categoria.nombre}" 
+                                th:selected="${selectedCategoryId == categoria.id}"></option>
+                    </th:block>
+                </select>
+                <button type="submit">Filtrar</button>
+            </form>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Categoría</th>
+                    <th>Cantidad</th>
+                    <th>Precio Unitario</th>
+                    <th>Subtotal</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="product : ${products}">
+                    <td th:text="${product.nombre}"></td>
+                    <td th:text="${product.categoria.nombre}"></td>
+                    <td th:text="${product.cantidad}"></td>
+                    <td th:text="'S/.' + ${product.precioUnitario}"></td>
+                    <td th:text="'S/. ' + ${product.subtotal}"></td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="action-button btn-ver-detalles" 
+                                    th:onclick="'window.location.href=\'/ver-detalles/' + ${product.id} + '\''">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="action-button btn-modificar" 
+                                    th:onclick="'window.location.href=\'/modificar-producto/' + ${product.id} + '\''">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="action-button btn-eliminar" 
+                                    th:onclick="'openModal(' + ${product.id} + ')'">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="button-container">
+            <button onclick="window.location.href='/home'">Volver al Inicio</button>
+            <button onclick="window.location.href='/agregar-producto'">Registrar Nuevo Producto</button>
+        </div>
+    </div>
+
+    <!-- Modal de confirmación con detalles del producto -->
+    <div class="modal" id="confirmation-modal">
+        <div class="modal-content">
+            <span class="close" id="close-modal">&times;</span>
+            <h2>Confirmar eliminación</h2>
+            <form id="delete-form" class="delete-form">
+                <label for="productName">Nombre del producto:</label>
+                <input type="text" id="productName" readonly>
+                
+                <label for="productCategory">Categoría:</label>
+                <input type="text" id="productCategory" readonly>
+                
+                <label for="productQuantity">Cantidad:</label>
+                <input type="text" id="productQuantity" readonly>
+                
+                <label for="productPrice">Precio Unitario:</label>
+                <input type="text" id="productPrice" readonly>
+                
+                <label for="productSubtotal">Subtotal:</label>
+                <input type="text" id="productSubtotal" readonly>
+                
+                <div class="delete-form-buttons">
+                    <button type="button" class="cancel-delete" id="cancel-delete">Cancelar</button>
+                    <button type="button" class="confirm-delete" id="confirm-delete">Confirmar Eliminación</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let productIdToDelete = null;
+
+        function openModal(productId) {
+            productIdToDelete = productId;
+            const product = getProductDetails(productId);
+            
+            document.getElementById("productName").value = product.nombre;
+            document.getElementById("productCategory").value = product.categoria;
+            document.getElementById("productQuantity").value = product.cantidad;
+            document.getElementById("productPrice").value = product.precioUnitario;
+            document.getElementById("productSubtotal").value = product.subtotal;
+            
+            document.getElementById("confirmation-modal").style.display = "block";
+        }
+
+        function getProductDetails(productId) {
+            const products = document.querySelectorAll('tbody tr');
+            for (let product of products) {
+                if (product.querySelector('.btn-eliminar').getAttribute('onclick').includes(productId)) {
+                    return {
+                        nombre: product.cells[0].textContent,
+                        categoria: product.cells[1].textContent,
+                        cantidad: product.cells[2].textContent,
+                        precioUnitario: product.cells[3].textContent,
+                        subtotal: product.cells[4].textContent
+                    };
+                }
+            }
+            return null;
+        }
+
+        document.getElementById("close-modal").onclick = function() {
+            document.getElementById("confirmation-modal").style.display = "none";
+        };
+
+        document.getElementById("cancel-delete").onclick = function() {
+            document.getElementById("confirmation-modal").style.display = "none";
+        };
+
+        document.getElementById("confirm-delete").onclick = function() {
+            window.location.href = `/eliminar-producto/${productIdToDelete}`;
+        };
+
+        window.onclick = function(event) {
+            const modal = document.getElementById("confirmation-modal");
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        };
+    </script>
+</body>
+</html>

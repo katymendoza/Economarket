@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Detalles del Producto</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: url('https://t4.ftcdn.net/jpg/06/63/16/45/360_F_663164516_iROkqpM1RCrA765j6hLMp1v6Lf2xPnU1.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+        }
+
+        .header {
+            font-size: 50px; 
+            font-weight: bold; 
+            color: white; 
+            background-color: rgba(46, 125, 50, 0.7); 
+            padding: 10px 0; 
+            margin-bottom: 40px; 
+            text-align: center;
+			font-family: 'Patrick Hand', cursive;
+
+        }
+		.logout-button {
+				            position: absolute; /* Posición absoluta para colocar el botón en la esquina superior derecha */
+				            top: 20px; /* Ajustar el espacio desde la parte superior */
+				            right: 30px; /* Ajustar el espacio desde la derecha */
+				            background-color: rgba(255, 0, 0, 0.8); /* Fondo rojo con opacidad */
+				            color: white; /* Color del texto */
+				            padding: 10px 20px; /* Espaciado interno ajustado */
+				            border-radius: 5px; /* Bordes redondeados */
+				            text-decoration: none; /* Quitar subrayado */
+				            font-size: 16px; /* Tamaño de la fuente */
+				            transition: background-color 0.3s; /* Transición suave para el color de fondo */
+				            z-index: 2; /* Asegurarse de que el botón esté frente a otros elementos */
+				        }
+
+				        .logout-button:hover {
+				            background-color: #c62828; /* Color más oscuro al pasar el mouse */
+				        }
+
+        .container {
+            width: 80%; /* Ancho del 80% de la pantalla */
+            margin: 50px auto; /* Centrar y separar del borde superior */
+            background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco con opacidad */
+            padding: 30px;
+            border-radius: 8px; /* Bordes redondeados */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra suave */
+        }
+
+        h1 {
+            font-size: 32px;
+            color: #2E7D32; /* Verde oscuro */
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        p {
+            font-size: 18px;
+            margin: 10px 0;
+            line-height: 1.5;
+        }
+
+        strong {
+            color: #2E7D32; /* Color verde para etiquetas fuertes */
+        }
+
+        button {
+            background-color: #2E7D32; /* Verde oscuro */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            display: block; /* Ocupa toda la línea */
+            margin: 20px auto; /* Centrar el botón */
+            transition: background-color 0.3s; /* Transición suave al pasar el mouse */
+        }
+
+        button:hover {
+            background-color: #1B5E20; /* Verde más oscuro al pasar el mouse */
+        }
+
+        /* Responsive para dispositivos móviles */
+        @media (max-width: 768px) {
+            .container {
+                width: 95%; /* Ajuste del ancho en pantallas pequeñas */
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            p {
+                font-size: 16px;
+            }
+
+            button {
+                width: 100%; /* Ancho completo del botón en pantallas pequeñas */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">Economarket</div>
+	<a href="/login" class="logout-button">Salir</a> <!-- Botón de salir -->
+
+    <div class="container">
+        <h1>Detalles de Producto</h1>
+        <p><strong>Nombre:</strong> <span th:text="${product.nombre}"></span></p>
+        <p><strong>Categoría:</strong> <span th:text="${product.categoria.nombre}"></span></p>
+        <p><strong>Cantidad:</strong> <span th:text="${product.cantidad}"></span></p>
+        <p><strong>Precio Unitario:</strong> <span th:text="'S/. ' +${product.precioUnitario}"></span></p>
+        <p><strong>Subtotal:</strong> <span th:text="'S/. ' + ${product.subtotal}"></span></p>
+        
+        <button onclick="window.location.href='/ver-lista-productos'">Volver a la Lista</button>
+    </div>
+</body>
+</html>

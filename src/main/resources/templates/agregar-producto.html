@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Agregar Producto</title>
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: url('https://t4.ftcdn.net/jpg/06/63/16/45/360_F_663164516_iROkqpM1RCrA765j6hLMp1v6Lf2xPnU1.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .header {
+            font-size: 50px;
+            font-weight: bold;
+            color: white;
+            background-color: rgba(46, 125, 50, 0.7);
+            padding: 10px 0;
+            width: 100%;
+            text-align: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+			font-family: 'Patrick Hand', cursive;
+        }
+		.logout-button {
+		            position: absolute; /* Posición absoluta para colocar el botón en la esquina superior derecha */
+		            top: 20px; /* Ajustar el espacio desde la parte superior */
+		            right: 30px; /* Ajustar el espacio desde la derecha */
+		            background-color: rgba(255, 0, 0, 0.8); /* Fondo rojo con opacidad */
+		            color: white; /* Color del texto */
+		            padding: 10px 20px; /* Espaciado interno ajustado */
+		            border-radius: 5px; /* Bordes redondeados */
+		            text-decoration: none; /* Quitar subrayado */
+		            font-size: 16px; /* Tamaño de la fuente */
+		            transition: background-color 0.3s; /* Transición suave para el color de fondo */
+		            z-index: 2; /* Asegurarse de que el botón esté frente a otros elementos */
+		        }
+
+		        .logout-button:hover {
+		            background-color: #c62828; /* Color más oscuro al pasar el mouse */
+		        }
+
+        h1 {
+            font-size: 36px;
+            color: #2E7D32;
+            margin-bottom: 20px;
+            font-family: 'Patrick Hand', cursive;
+            text-align: center;
+        }
+
+        form {
+            background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco semitransparente */
+            padding: 40px; /* Más padding para mayor tamaño */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 600px; /* Ancho máximo aumentado */
+            width: 100%;
+			margin-top: 40px;
+        }
+
+        label {
+            font-size: 18px; /* Aumenta el tamaño del texto de los labels */
+            color: #333;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 15px; /* Aumenta el padding */
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 18px; /* Aumenta el tamaño de la fuente */
+        }
+
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+
+        button {
+            background-color: #2E7D32;
+            color: white;
+            padding: 15px 25px; /* Aumenta el padding */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px; /* Aumenta el tamaño de la fuente */
+            width: 100%;
+            margin-bottom: 15px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #1B5E20;
+        }
+
+        .secondary-button {
+            background-color: #ccc;
+            color: #333;
+        }
+
+        .secondary-button:hover {
+            background-color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">Economarket</div> <!-- Header con el nombre del minimarket -->
+	<a href="/login" class="logout-button">Salir</a> <!-- Botón de salir -->
+
+    <form action="#" th:action="@{/agregar-producto}" method="post">
+        <h1>Agregar Producto</h1>
+        
+        <label for="name">Nombre:</label>
+        <input type="text" name="name" required>
+
+        <label for="category">Categoría:</label>
+        <select name="categoryId" required>
+            <option th:each="category : ${categories}" 
+                    th:value="${category.id}" 
+                    th:text="${category.nombre}">Categoría</option>
+        </select>
+
+        <label for="quantity">Cantidad:</label>
+        <input type="number" name="quantity" required>
+
+        <label for="price">Precio Unitario:</label>
+        <input type="number" step="0.01" name="price" required>
+
+        <button type="submit">Agregar Producto</button>
+        <button type="button" class="secondary-button" onclick="window.location.href='/home'">Volver al Inicio</button>
+    </form>
+</body>
+</html>

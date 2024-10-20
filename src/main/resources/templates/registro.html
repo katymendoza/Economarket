@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Registro - Minimarket</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: url('https://t4.ftcdn.net/jpg/06/63/16/45/360_F_663164516_iROkqpM1RCrA765j6hLMp1v6Lf2xPnU1.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .header {
+            font-size: 50px;
+            font-weight: bold;
+            color: white;
+            background-color: rgba(46, 125, 50, 0.7);
+            padding: 10px 0;
+            width: 100%;
+            text-align: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            font-family: 'Patrick Hand', cursive;
+        }
+
+        .register-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Altura completa de la ventana */
+        }
+
+        .register-form {
+            background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco con opacidad */
+            border-radius: 8px; /* Bordes redondeados */
+            padding: 40px; /* Aumentar espaciado interno para hacerlo más grande */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra suave */
+            text-align: center; /* Centrar el texto */
+            width: 500px; /* Aumentar ancho del formulario */
+			margin-top: 80px;
+        }
+
+        .user-icon {
+            width: 100px; /* Aumentar ancho del icono */
+            height: 100px; /* Aumentar alto del icono */
+            border-radius: 50%; /* Hacer el icono redondo */
+            margin-bottom: 10px; /* Espaciado inferior */
+        }
+
+        h1 {
+            margin-bottom: 20px; /* Espaciado inferior del título */
+            font-size: 28px; /* Tamaño del título */
+            color: #2E7D32; /* Color verde */
+        }
+
+        label {
+            display: block; /* Para que cada etiqueta ocupe su propia línea */
+            margin-bottom: 5px; /* Espaciado inferior */
+            font-weight: bold; /* Negrita */
+            color: #333; /* Color del texto */
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%; /* Ancho completo */
+            padding: 10px; /* Espaciado interno */
+            margin-bottom: 15px; /* Espaciado inferior */
+            border: 1px solid #A5D6A7; /* Borde verde claro */
+            border-radius: 4px; /* Bordes redondeados */
+            transition: border-color 0.3s; /* Transición suave para el cambio de color */
+        }
+
+        /* Cambiar el color del borde al hacer clic */
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus {
+            border-color: #1B5E20; /* Borde verde oscuro al hacer clic */
+            outline: none; /* Quitar el borde azul por defecto */
+        }
+
+        button {
+            background-color: #2E7D32; /* Color verde del minimarket */
+            color: white; /* Color del texto */
+            padding: 10px; /* Espaciado interno */
+            border: none; /* Sin borde */
+            border-radius: 4px; /* Bordes redondeados */
+            cursor: pointer; /* Cambiar el cursor al pasar el ratón */
+            width: 100%; /* Ancho completo */
+            font-size: 16px; /* Tamaño de fuente */
+        }
+
+        button:hover {
+            background-color: #1B5E20; /* Color más oscuro al pasar el mouse */
+        }
+
+        /* Estilo para el enlace de volver al login */
+        .login-link {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #2E7D32;
+            text-decoration: none;
+            display: block;
+        }
+
+        .login-link:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="header">Economarket</div> <!-- Nombre del minimarket -->
+    <div class="register-container">
+        <div class="register-form">
+            <img src="https://cdn-icons-png.freepik.com/512/7077/7077313.png" alt="User Icon" class="user-icon">
+            <h1>Registro</h1>
+            <form th:action="@{/registro}" method="post">
+                <label for="name">Nombre:</label>
+                <input type="text" name="name" required>
+                
+                <label for="lastname">Apellido:</label>
+                <input type="text" name="lastname" required>
+                
+                <label for="email">Email:</label>
+                <input type="email" name="email" required>
+                
+                <label for="username">Username:</label>
+                <input type="text" name="username" required>
+                
+                <label for="password">Password:</label>
+                <input type="password" name="password" required>
+                
+                <button type="submit">Registrar</button>
+            </form>
+
+            <!-- Opción para volver al login -->
+            <a href="/login" class="login-link">¿Ya tienes cuenta? Inicia sesión aquí</a>
+
+        </div>
+    </div>
+</body>
+</html>

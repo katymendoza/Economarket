@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Modificar Producto</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: url('https://t4.ftcdn.net/jpg/06/63/16/45/360_F_663164516_iROkqpM1RCrA765j6hLMp1v6Lf2xPnU1.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+        }
+
+        .header {
+			font-family: 'Patrick Hand', cursive;
+            font-size: 50px; 
+            font-weight: bold; 
+            color: white; 
+            background-color: rgba(46, 125, 50, 0.7); 
+            padding: 10px 0; 
+            margin-bottom: 40px; 
+            text-align: center;
+        }
+		.logout-button {
+				            position: absolute; /* Posición absoluta para colocar el botón en la esquina superior derecha */
+				            top: 20px; /* Ajustar el espacio desde la parte superior */
+				            right: 30px; /* Ajustar el espacio desde la derecha */
+				            background-color: rgba(255, 0, 0, 0.8); /* Fondo rojo con opacidad */
+				            color: white; /* Color del texto */
+				            padding: 10px 20px; /* Espaciado interno ajustado */
+				            border-radius: 5px; /* Bordes redondeados */
+				            text-decoration: none; /* Quitar subrayado */
+				            font-size: 16px; /* Tamaño de la fuente */
+				            transition: background-color 0.3s; /* Transición suave para el color de fondo */
+				            z-index: 2; /* Asegurarse de que el botón esté frente a otros elementos */
+				        }
+
+				        .logout-button:hover {
+				            background-color: #c62828; /* Color más oscuro al pasar el mouse */
+				        }
+
+        .container {
+            width: 40%; /* Ancho del 40% de la pantalla */
+            margin: 50px auto; /* Centrar y separar del borde superior */
+            background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco con opacidad */
+            padding: 30px;
+            border-radius: 8px; /* Bordes redondeados */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra suave */
+        }
+
+        h1 {
+            font-size: 32px;
+            color: #2E7D32; /* Verde oscuro */
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        label {
+            font-size: 18px;
+            margin: 10px 0;
+            display: block; /* Asegura que los labels ocupen toda la línea */
+            color: #2E7D32; /* Color verde para las etiquetas */
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%; /* Ocupa todo el ancho */
+            padding: 8px; /* Espaciado interno reducido */
+            margin-bottom: 20px; /* Espaciado inferior */
+            border: 1px solid #ccc; /* Borde gris */
+            border-radius: 4px; /* Bordes redondeados */
+            font-size: 16px;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        select:focus {
+            border-color: #2E7D32; /* Color verde al enfocar */
+            box-shadow: 0 0 5px rgba(46, 125, 50, 0.5); /* Sombra verde al enfocar */
+        }
+
+        .button-container {
+            display: flex; /* Usar flexbox para alinear botones horizontalmente */
+            justify-content: space-between; /* Espaciado igual entre botones */
+            margin-top: 20px; /* Margen superior para separación */
+        }
+
+        button {
+            background-color: #2E7D32; /* Verde oscuro */
+            color: white;
+            padding: 8px 12px; /* Ajuste de tamaño del padding */
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1; /* Asegurar que los botones ocupen el mismo espacio */
+            margin: 0 5px; /* Espaciado entre botones */
+            transition: background-color 0.3s; /* Transición suave al pasar el mouse */
+        }
+
+        button:hover {
+            background-color: #1B5E20; /* Verde más oscuro al pasar el mouse */
+        }
+
+        /* Responsive para dispositivos móviles */
+        @media (max-width: 768px) {
+            .container {
+                width: 90%; /* Ajuste del ancho en pantallas pequeñas */
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            label {
+                font-size: 16px;
+            }
+
+            input[type="text"],
+            input[type="number"],
+            select {
+                font-size: 14px; /* Tamaño de fuente más pequeño en móviles */
+            }
+
+            button {
+                font-size: 14px; /* Tamaño de fuente más pequeño en móviles */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">Economarket</div>
+	<a href="/login" class="logout-button">Salir</a> <!-- Botón de salir -->
+
+    <div class="container">
+        <h1>Modificar Producto</h1>
+        <form action="#" th:action="@{/modificar-producto/{id}(id=${product.id})}" method="post">
+            <label for="name">Nombre:</label>
+            <input type="text" name="name" th:value="${product.nombre}" required>
+            
+            <label for="category">Categoría:</label>
+            <select name="categoryId" required>
+                <option value="" disabled selected>Categoría</option>
+                <option th:each="category : ${categories}" 
+                        th:value="${category.id}" 
+                        th:text="${category.nombre}" 
+                        th:selected="${category.id == product.categoria.id}"></option>
+            </select>
+            
+            <label for="quantity">Cantidad:</label>
+            <input type="number" name="quantity" th:value="${product.cantidad}" required>
+            
+            <label for="price">Precio Unitario:</label>
+            <input type="number" step="0.01" name="price" th:value="${product.precioUnitario}" required>
+            
+            <div class="button-container">
+                <button type="submit">Actualizar</button>
+                <button type="button" onclick="window.location.href='/ver-lista-productos'">Volver a la Lista</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
